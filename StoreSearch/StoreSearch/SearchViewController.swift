@@ -27,3 +27,21 @@ class SearchViewController: UIViewController {
 
 }
 
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    print("The search text is: '\(searchBar.text!)'")
+    }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
+}
+
+extension SearchViewController: UITableViewDataSource {
+        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 0
+        }
+}
+
+extension SearchViewController: UITableViewDelegate {
+        func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            return UITableViewCell()
+        }
+}
