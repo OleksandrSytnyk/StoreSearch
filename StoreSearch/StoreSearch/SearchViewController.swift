@@ -32,6 +32,8 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
+        searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
+        
         for i in 0...2 {
         searchResults.append(String(format: "Fake Result %d for '%@'", i,
             searchBar.text!))
@@ -39,6 +41,10 @@ extension SearchViewController: UISearchBarDelegate {
 
         tableView.reloadData()
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
+    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
