@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    var searchResults = [String]()
+    var searchResults = [SearchResult]()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -35,8 +35,10 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
         
         for i in 0...2 {
-        searchResults.append(String(format: "Fake Result %d for '%@'", i,
-            searchBar.text!))
+            let searchResult = SearchResult()
+            searchResult.name = String(format: "Fake Result %d for", i)
+            searchResult.artistName = searchBar.text!
+            searchResults.append(searchResult)
         }
 
         tableView.reloadData()
@@ -57,10 +59,13 @@ extension SearchViewController: UITableViewDataSource {
         let cellIdentifier = "SearchResultCell"
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
         if cell == nil {
-            cell = UITableViewCell(style: .Default,
+            cell = UITableViewCell(style: .Subtitle,
                 reuseIdentifier: cellIdentifier)
         }
-        cell.textLabel!.text = searchResults[indexPath.row]
+        let searchResult = searchResults[indexPath.row] 
+        cell.textLabel!.text = searchResult.name 
+        cell.detailTextLabel!.text = searchResult.artistName
+        
         return cell
     }
 }
