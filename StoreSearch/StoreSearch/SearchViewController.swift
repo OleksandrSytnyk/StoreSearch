@@ -19,8 +19,11 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
             right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar. 
-        let cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
+        var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
+        cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
+        tableView.registerNib(cellNib,
+            forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
         tableView.rowHeight = 80
     }
 
@@ -31,6 +34,7 @@ class SearchViewController: UIViewController {
 
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
+        static let nothingFoundCell = "NothingFoundCell"
     }
 
 }
@@ -75,18 +79,21 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
          
+        
+        if searchResults.count == 0 {
+        /*cell.nameLabel.text = "(Nothing found)"
+        cell.artistNameLabel.text = ""   this is to fix a bug whih I missed in the previous commit*/
+            return tableView.dequeueReusableCellWithIdentifier(
+            TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
+        } else {
         let cell = tableView.dequeueReusableCellWithIdentifier(
             TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
-        if searchResults.count == 0 {
-            cell.textLabel!.text = "(Nothing found)"
-            cell.detailTextLabel!.text = ""
-        } else {
         let searchResult = searchResults[indexPath.row] 
         cell.nameLabel.text = searchResult.name
         cell.artistNameLabel.text = searchResult.artistName//You no longer need to write ! to unwrap because the outlets are implicitly unwrapped optionals, not true optionals.
+            
+            return cell
         }
-        
-        return cell
     }
 }
 
