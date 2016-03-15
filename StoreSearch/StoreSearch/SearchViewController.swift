@@ -19,6 +19,9 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
             right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar. 
+        let cellNib = UINib(nibName: "SearchResultCell", bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: "SearchResultCell")
+        tableView.rowHeight = 80
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,20 +71,16 @@ extension SearchViewController: UITableViewDataSource {
         }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "SearchResultCell"
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: .Subtitle,
-                reuseIdentifier: cellIdentifier)
-        }
-        
+         
+        let cell = tableView.dequeueReusableCellWithIdentifier(
+            "SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
         if searchResults.count == 0 {
             cell.textLabel!.text = "(Nothing found)"
             cell.detailTextLabel!.text = ""
         } else {
         let searchResult = searchResults[indexPath.row] 
-        cell.textLabel!.text = searchResult.name 
-        cell.detailTextLabel!.text = searchResult.artistName
+        cell.nameLabel.text = searchResult.name
+        cell.artistNameLabel.text = searchResult.artistName//You no longer need to write ! to unwrap because the outlets are implicitly unwrapped optionals, not true optionals.
         }
         
         return cell
