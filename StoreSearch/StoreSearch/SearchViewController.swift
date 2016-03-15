@@ -19,8 +19,8 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
             right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar. 
-        let cellNib = UINib(nibName: "SearchResultCell", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "SearchResultCell")
+        let cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
         tableView.rowHeight = 80
     }
 
@@ -29,6 +29,9 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    struct TableViewCellIdentifiers {
+        static let searchResultCell = "SearchResultCell"
+    }
 
 }
 
@@ -73,7 +76,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
          
         let cell = tableView.dequeueReusableCellWithIdentifier(
-            "SearchResultCell", forIndexPath: indexPath) as! SearchResultCell
+            TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
         if searchResults.count == 0 {
             cell.textLabel!.text = "(Nothing found)"
             cell.detailTextLabel!.text = ""
