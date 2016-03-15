@@ -50,4 +50,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }//This changes the appearance of all search bars in the application.
     
 }
-
+ 
