@@ -51,6 +51,15 @@ class SearchViewController: UIViewController {
         
         return url!
     }
+    
+    func performStoreRequestWithURL(url: NSURL) -> String? {
+            do {
+            return try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
+        } catch {
+            print("Download Error: \(error)")
+            return nil
+            }
+    }
 
 }
 
@@ -65,6 +74,9 @@ extension SearchViewController: UISearchBarDelegate {
         
         let url = urlWithSearchText(searchBar.text!)
         print("URL: '\(url)'")
+        if let jsonString = performStoreRequestWithURL(url) {
+        print("Received JSON string '\(jsonString)'")
+                }
 
         tableView.reloadData()
     }
