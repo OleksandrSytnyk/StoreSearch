@@ -72,6 +72,19 @@ class SearchViewController: UIViewController {
         return nil
         }
     }
+    
+    func showNetworkError() {
+                let alert = UIAlertController(
+                title: "Whoops...",
+                message:
+                "There was an error reading from the iTunes Store. Please try again.",
+                preferredStyle: .Alert)
+                
+                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(action)
+                
+                presentViewController(alert, animated: true, completion: nil)
+    }
 
 }
 
@@ -87,14 +100,14 @@ extension SearchViewController: UISearchBarDelegate {
         let url = urlWithSearchText(searchBar.text!)
         print("URL: '\(url)'")
         if let jsonString = performStoreRequestWithURL(url) {
-        print("Received JSON string '\(jsonString)'")
-            
             if let dictionary = parseJSON(jsonString) {
             print("Dictionary \(dictionary)")
+        tableView.reloadData()
+        return
             }
         }
-
-        tableView.reloadData()
+            showNetworkError()
+        
     }
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
     
