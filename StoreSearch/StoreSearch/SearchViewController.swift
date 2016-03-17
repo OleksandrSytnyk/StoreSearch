@@ -60,6 +60,18 @@ class SearchViewController: UIViewController {
             return nil
             }
     }
+    
+    func parseJSON(jsonString: String) -> [String: AnyObject]? {
+        guard let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
+        else { return nil }
+        
+        do {
+        return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject]
+        } catch {
+        print("JSON Error: \(error)")
+        return nil
+        }
+    }
 
 }
 
@@ -76,7 +88,11 @@ extension SearchViewController: UISearchBarDelegate {
         print("URL: '\(url)'")
         if let jsonString = performStoreRequestWithURL(url) {
         print("Received JSON string '\(jsonString)'")
-                }
+            
+            if let dictionary = parseJSON(jsonString) {
+            print("Dictionary \(dictionary)")
+            }
+        }
 
         tableView.reloadData()
     }
