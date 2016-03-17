@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
@@ -38,27 +38,36 @@ class SearchViewController: UIViewController {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
     }
+    
+    func urlWithSearchText(searchText: String) -> NSURL {
+         
+        let escapedSearchText =
+        searchText.stringByAddingPercentEncodingWithAllowedCharacters(  
+            NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        let urlString = String(format:
+        "https://itunes.apple.com/search?term=%@", escapedSearchText)
+        let url = NSURL(string: urlString)
+        
+        return url!
+    }
 
 }
 
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
+    
+    if !searchBar.text!.isEmpty {
         searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
         searchResults = [SearchResult]()//it's to remove results of the old search
         hasSearched = true
         
-        if searchBar.text! != "justin bieber" {
-        for i in 0...2 {
-            let searchResult = SearchResult()
-            searchResult.name = String(format: "Fake Result %d for", i)
-            searchResult.artistName = searchBar.text!
-            searchResults.append(searchResult)
-            }
-        }
+        let url = urlWithSearchText(searchBar.text!)
+        print("URL: '\(url)'")
 
         tableView.reloadData()
+    }
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
