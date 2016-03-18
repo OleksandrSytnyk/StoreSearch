@@ -254,7 +254,7 @@ extension SearchViewController: UISearchBarDelegate {
         
        searchResults = parseDictionary(dictionary)
         
-        searchResults.sortInPlace { $0 < $1}
+        searchResults.sortInPlace (<)
         
         tableView.reloadData()
         return
