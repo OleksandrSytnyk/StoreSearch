@@ -254,7 +254,8 @@ extension SearchViewController: UISearchBarDelegate {
         
        searchResults = parseDictionary(dictionary)
         
-    searchResults.sortInPlace({ result1, result2 in return result1.name.localizedStandardCompare(result2.name) == .OrderedAscending})
+        searchResults.sortInPlace { $0.name.localizedStandardCompare($1.name)
+                == .OrderedAscending }
         
         tableView.reloadData()
         return
@@ -324,3 +325,4 @@ extension SearchViewController: UITableViewDelegate {
     }
     
 }
+
