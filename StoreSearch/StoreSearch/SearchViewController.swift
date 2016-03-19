@@ -11,6 +11,7 @@ import UIKit
 class SearchViewController: UIViewController {
     var searchResults = [SearchResult]()
     var hasSearched = false
+    var isLoading = false
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -18,15 +19,19 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
-            right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar. 
+            right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar.
+        tableView.rowHeight = 80
+        searchBar.becomeFirstResponder()
+        
         var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
+        
         cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
         tableView.registerNib(cellNib,
             forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
-        tableView.rowHeight = 80
         
-        searchBar.becomeFirstResponder()
+        cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +42,7 @@ class SearchViewController: UIViewController {
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
+        static let loadingCell = "LoadingCell"
     }
     
     func urlWithSearchText(searchText: String) -> NSURL {
@@ -46,7 +52,7 @@ class SearchViewController: UIViewController {
             NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         let urlString = String(format:
-        "https://itunes.apple.com/search?term=%@", escapedSearchText)
+        "https://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
         let url = NSURL(string: urlString)
         
         return url!
@@ -243,7 +249,11 @@ extension SearchViewController: UISearchBarDelegate {
     
     if !searchBar.text!.isEmpty {
         searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
-        searchResults = [SearchResult]()//it's to remove results of the old search
+        
+        isLoading = true
+        tableView.reloadData()
+        
+        /*searchResults = [SearchResult]()//it's to remove results of the old search
         hasSearched = true
         
         let url = urlWithSearchText(searchBar.text!)
@@ -256,11 +266,12 @@ extension SearchViewController: UISearchBarDelegate {
         
         searchResults.sortInPlace (<)
         
+        isLoading = false
         tableView.reloadData()
         return
             }
         }
-            showNetworkError()
+            showNetworkError()*/
         
     }
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
@@ -273,7 +284,10 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDataSource {
     
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if !hasSearched {
+        
+        if isLoading {
+            return 1
+        } else if !hasSearched {
                 return 0
             }
             else if searchResults.count == 0 {
@@ -285,7 +299,15 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if searchResults.count == 0 {
+        if isLoading {
+            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath)
+            
+            let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+            spinner.startAnimating()
+            
+            return cell
+            
+        } else if searchResults.count == 0 {
         /*cell.nameLabel.text = "(Nothing found)"
         cell.artistNameLabel.text = ""   this is to fix a bug whih I missed in the previous commit*/
             return tableView.dequeueReusableCellWithIdentifier(
@@ -317,7 +339,8 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView,
         willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if searchResults.count == 0 { return nil
+        if searchResults.count == 0 || isLoading{
+            return nil
     } else {
         return indexPath
         }
