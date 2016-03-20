@@ -253,27 +253,32 @@ extension SearchViewController: UISearchBarDelegate {
         isLoading = true
         tableView.reloadData()
         
-        /*searchResults = [SearchResult]()//it's to remove results of the old search
+       searchResults = [SearchResult]()//it's to remove results of the old search
         hasSearched = true
         
-        let url = urlWithSearchText(searchBar.text!)
+        let queue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        
+        dispatch_async(queue) {
+        
+        let url = self.urlWithSearchText(searchBar.text!)
         print("URL: '\(url)'")
-        if let jsonString = performStoreRequestWithURL(url) {
-            if let dictionary = parseJSON(jsonString) {
-            print("Dictionary \(dictionary)")
+        if let jsonString = self.performStoreRequestWithURL(url),
+            let dictionary = self.parseJSON(jsonString) {
         
-       searchResults = parseDictionary(dictionary)
-        
-        searchResults.sortInPlace (<)
-        
-        isLoading = false
-        tableView.reloadData()
+       self.searchResults = self.parseDictionary(dictionary)
+        self.searchResults.sortInPlace (<)
+            
+        dispatch_async(dispatch_get_main_queue()) {
+            self.isLoading = false
+            self.tableView.reloadData()
+            }
         return
             }
-        }
-            showNetworkError()*/
-        
-    }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.showNetworkError()
+            }
+         }
+      }
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
