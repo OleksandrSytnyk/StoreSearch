@@ -58,15 +58,6 @@ class SearchViewController: UIViewController {
         return url!
     }
     
-    func performStoreRequestWithURL(url: NSURL) -> String? {
-            do {
-            return try String(contentsOfURL: url, encoding: NSUTF8StringEncoding)
-        } catch {
-            print("Download Error: \(error)")
-            return nil
-            }
-    }
-    
     func parseJSON(jsonString: String) -> [String: AnyObject]? {
         guard let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
         else { return nil }
@@ -255,30 +246,24 @@ extension SearchViewController: UISearchBarDelegate {
         
        searchResults = [SearchResult]()//it's to remove results of the old search
         hasSearched = true
+
+        let url = urlWithSearchText(searchBar.text!)
+       
+        let session = NSURLSession.sharedSession()
         
-        let queue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        
-        dispatch_async(queue) {
-        
-        let url = self.urlWithSearchText(searchBar.text!)
-        print("URL: '\(url)'")
-        if let jsonString = self.performStoreRequestWithURL(url),
-            let dictionary = self.parseJSON(jsonString) {
-        
-       self.searchResults = self.parseDictionary(dictionary)
-        self.searchResults.sortInPlace (<)
-            
-        dispatch_async(dispatch_get_main_queue()) {
-            self.isLoading = false
-            self.tableView.reloadData()
+        let dataTask = session.dataTaskWithURL(url, completionHandler: { data, response, error in
+        //response holds the server’s response code and headers
+            if let error = error {
+            print("Failure! \(error)")
+        } else if let httpResponse = response as? NSHTTPURLResponse where httpResponse.statusCode == 200 {
+            print("Success! \(data!)")
+        } else {
+            print("Failure! \(response!)")
             }
-        return
-            }
-            dispatch_async(dispatch_get_main_queue()) {
-                self.showNetworkError()
-            }
-         }
-      }
+        })//The code from the completion handler will be invoked when the data task has received the reply from the server.
+        
+        dataTask.resume()//this starts the data task on a background thread
+        }
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
