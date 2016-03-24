@@ -16,6 +16,7 @@
 		E4D4FA661C97D4E500156CC9 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4D4FA651C97D4E500156CC9 /* SearchResultCell.xib */; };
 		E4D4FA681C97FD5B00156CC9 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */; };
 		E4D4FA6A1C98174700156CC9 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4D4FA691C98174600156CC9 /* NothingFoundCell.xib */; };
+		E4DEA6541CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEA6531CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E4D4FA651C97D4E500156CC9 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		E4D4FA691C98174600156CC9 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		E4DEA6531CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift..swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */,
 				E4D4FA691C98174600156CC9 /* NothingFoundCell.xib */,
 				E4985E241C9D6561007AA205 /* LoadingCell.xib */,
+				E4DEA6531CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				E4829EEA1C97387700DCF0F8 /* SearchResult.swift in Sources */,
 				E4D4FA681C97FD5B00156CC9 /* SearchResultCell.swift in Sources */,
 				E437A3451C93F75900DB0B20 /* AppDelegate.swift in Sources */,
+				E4DEA6541CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
