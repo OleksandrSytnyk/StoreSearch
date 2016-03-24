@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Search View Controller-->
@@ -17,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s1A-sX-o66">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s1A-sX-o66">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -32,20 +33,41 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="bxK-vh-rzQ"/>
                                 </connections>
                             </searchBar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zhW-gK-w95">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="1uc-jD-f38">
+                                        <nil key="title"/>
+                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="nI1-Sj-wDF">
+                                            <rect key="frame" x="150" y="8" width="300" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Music"/>
+                                                <segment title="Software"/>
+                                                <segment title="E-books"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="mNa-tB-fpn"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="zvw-n2-UwM" secondAttribute="trailing" id="5vZ-5R-Sfq"/>
-                            <constraint firstItem="s1A-sX-o66" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="MZP-8C-fpX"/>
                             <constraint firstItem="zvw-n2-UwM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="S3Y-d6-obW"/>
-                            <constraint firstAttribute="trailing" secondItem="s1A-sX-o66" secondAttribute="trailing" id="So5-IH-9Tb"/>
-                            <constraint firstItem="s1A-sX-o66" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UJn-KX-wPc"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="s1A-sX-o66" secondAttribute="bottom" id="Vbf-m0-RBi"/>
                             <constraint firstItem="zvw-n2-UwM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="a5d-iB-frC"/>
+                            <constraint firstItem="zhW-gK-w95" firstAttribute="top" secondItem="zvw-n2-UwM" secondAttribute="bottom" id="aBD-b8-NHe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zhW-gK-w95" secondAttribute="trailing" constant="-20" id="n9x-LU-5t7"/>
+                            <constraint firstItem="zhW-gK-w95" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="wZp-32-t4V"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="zvw-n2-UwM" id="WiM-KX-coH"/>
+                        <outlet property="segmentedControl" destination="nI1-Sj-wDF" id="XLZ-XO-8x7"/>
                         <outlet property="tableView" destination="s1A-sX-o66" id="RSF-r5-MYF"/>
                     </connections>
                 </viewController>

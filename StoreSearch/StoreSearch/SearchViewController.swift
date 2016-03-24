@@ -16,11 +16,12 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0,
-            right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar.
+        tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0,
+            right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar and 44 points for Navigation bar.
         tableView.rowHeight = 80
         searchBar.becomeFirstResponder()
         
@@ -39,6 +40,9 @@ class SearchViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func segmentChanged(sender: UISegmentedControl) {
+       performSearch()
+    }
 
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
@@ -46,14 +50,28 @@ class SearchViewController: UIViewController {
         static let loadingCell = "LoadingCell"
     }
     
-    func urlWithSearchText(searchText: String) -> NSURL {
+    func urlWithSearchText(searchText: String, category: Int) -> NSURL {
+        
+         
+        let entityName: String
+         
+        switch category {
+             
+        case 1: entityName = "musicTrack"
+             
+        case 2: entityName = "software"
+             
+        case 3: entityName = "ebook"
+             
+        default: entityName = ""
+        }
          
         let escapedSearchText =
         searchText.stringByAddingPercentEncodingWithAllowedCharacters(  
             NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         let urlString = String(format:
-        "https://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
+        "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
         
         return url!
@@ -236,6 +254,10 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        performSearch()
+    }
+    
+    func performSearch() {
     
     if !searchBar.text!.isEmpty {
         searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
@@ -248,7 +270,7 @@ extension SearchViewController: UISearchBarDelegate {
        searchResults = [SearchResult]()//it's to remove results of the old search
         hasSearched = true
 
-        let url = urlWithSearchText(searchBar.text!)
+        let url = urlWithSearchText(searchBar.text!, category: segmentedControl.selectedSegmentIndex)
        
         let session = NSURLSession.sharedSession()
         
