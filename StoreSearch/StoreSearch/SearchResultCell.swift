@@ -58,4 +58,13 @@ class SearchResultCell: UITableViewCell {
             downloadTask = artworkImageView.loadImageWithURL(url)
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        downloadTask?.cancel()
+        downloadTask = nil
+        nameLabel.text = nil
+        artistNameLabel.text = nil
+        artworkImageView.image = nil
+    }
 }
