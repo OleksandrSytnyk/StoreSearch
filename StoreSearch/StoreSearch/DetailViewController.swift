@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    var searchResult: SearchResult!
+    
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -33,6 +35,10 @@ class DetailViewController: UIViewController {
     gestureRecognizer.cancelsTouchesInView = false
     gestureRecognizer.delegate = self
     view.addGestureRecognizer(gestureRecognizer)//This creates the new gesture recognizer that listens to taps anywhere in this view controller and calls the close() method in response.
+        
+        if searchResult != nil {
+            updateUI()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +59,17 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func updateUI() {
+        nameLabel.text = searchResult.name
+        if searchResult.artistName.isEmpty {
+        artistNameLabel.text = "Unknown"
+        } else {
+        artistNameLabel.text = searchResult.artistName
+        }
+        kindLabel.text = searchResult.kindForDisplay()
+        genreLabel.text = searchResult.genre
+    }
+                             
 }
 
 extension DetailViewController: UIViewControllerTransitioningDelegate {
