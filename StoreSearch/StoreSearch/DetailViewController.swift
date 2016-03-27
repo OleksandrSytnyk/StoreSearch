@@ -86,6 +86,12 @@ class DetailViewController: UIViewController {
         priceButton.setTitle(priceText, forState: .Normal)
          
     }
+    
+    @IBAction func openInStore() {
+    if let url = NSURL(string: searchResult.storeURL) {
+    UIApplication.sharedApplication().openURL(url)
+            }
+    }
                              
 }
 
