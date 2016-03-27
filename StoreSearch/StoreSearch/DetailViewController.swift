@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var searchResult: SearchResult!
+    var downloadTask: NSURLSessionDownloadTask?
     
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var artworkImageView: UIImageView!
@@ -24,6 +25,11 @@ class DetailViewController: UIViewController {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
         transitioningDelegate = self
+    }
+    
+    deinit {
+        print("deinit \(self)")
+        downloadTask?.cancel()
     }
 
     override func viewDidLoad() {
@@ -84,6 +90,10 @@ class DetailViewController: UIViewController {
         }
         
         priceButton.setTitle(priceText, forState: .Normal)
+        
+        if let url = NSURL(string: searchResult.artworkURL100) {
+                downloadTask = artworkImageView.loadImageWithURL(url)
+        }
          
     }
     
