@@ -27,12 +27,12 @@ class GradientView: UIView {
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, 2)// These relics from iOS are called “opaque” types, or “handles”.
-        // 3
+        
         let x = CGRectGetMidX(bounds)
         let y = CGRectGetMidY(bounds)//The CGRectGetMidX() and CGRectGetMidY() functions return the center point of a rectangle. That rectangle is given by bounds, a CGRect object that describes the dimensions of the view.
         let point = CGPoint(x: x, y : y)
         let radius = max(x, y)
-        // 4
+        
         let context = UIGraphicsGetCurrentContext()
         CGContextDrawRadialGradient(context, gradient, point, 0, point,
         radius, .DrawsAfterEndLocation)
