@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     var hasSearched = false
     var isLoading = false
     var dataTask: NSURLSessionDataTask?
+    var landscapeViewController: LandscapeViewController?
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -43,6 +44,8 @@ class SearchViewController: UIViewController {
     @IBAction func segmentChanged(sender: UISegmentedControl) {
        performSearch()
     }
+    
+    
 
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
@@ -240,6 +243,49 @@ class SearchViewController: UIViewController {
         let indexPath = sender as! NSIndexPath
         let searchResult = searchResults[indexPath.row]
         detailViewController.searchResult = searchResult
+        }
+    }
+    
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection,
+        withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        
+        switch newCollection.verticalSizeClass {
+            
+        case .Compact:
+            showLandscapeViewWithCoordinator(coordinator)
+            
+        case .Regular, .Unspecified:
+                hideLandscapeViewWithCoordinator(coordinator)
+        }
+    }
+    
+    func showLandscapeViewWithCoordinator(
+    coordinator: UIViewControllerTransitionCoordinator) {
+               
+    precondition(landscapeViewController == nil)
+                
+    landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier( "LandscapeViewController") as? LandscapeViewController
+                
+    if let controller = landscapeViewController {
+                
+    controller.view.frame = view.bounds
+               
+    view.addSubview(controller.view)//This places controller.view on top of the SearchResult controller's view
+    addChildViewController(controller)//this tell the SearchViewController  that controller is who is managing it's part of the screen, actually full top of the screen
+    controller.didMoveToParentViewController(self) //this tell controller that it has a parent
+        }
+    }
+    
+    func hideLandscapeViewWithCoordinator(
+    coordinator: UIViewControllerTransitionCoordinator) {
+                    
+    if let controller = landscapeViewController {
+    controller.willMoveToParentViewController(nil)//this tells controller that it no longer has a parent
+    controller.view.removeFromSuperview()
+    controller.removeFromParentViewController()//to truly dispose of the view controller
+        landscapeViewController = nil//to remove the last strong reference to the LandscapeViewController object
         }
     }
 }
