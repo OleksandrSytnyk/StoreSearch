@@ -271,10 +271,18 @@ class SearchViewController: UIViewController {
     if let controller = landscapeViewController {
                 
     controller.view.frame = view.bounds
+        
+    controller.view.alpha = 0
                
     view.addSubview(controller.view)//This places controller.view on top of the SearchResult controller's view
     addChildViewController(controller)//this tell the SearchViewController  that controller is who is managing it's part of the screen, actually full top of the screen
+    coordinator.animateAlongsideTransition({ _ in
+             
+    controller.view.alpha = 1
+    }, completion: { _ in
     controller.didMoveToParentViewController(self) //this tell controller that it has a parent
+        //you put this here to delay the call to didMoveToParentViewController() until the animation is over.
+            })//Both closures are given a “transition coordinator context” parameter (the same context that animation controllers get) but it’s not very interesting here and you use the _ wildcard to ignore it.
         }
     }
     
@@ -283,9 +291,14 @@ class SearchViewController: UIViewController {
                     
     if let controller = landscapeViewController {
     controller.willMoveToParentViewController(nil)//this tells controller that it no longer has a parent
+        
+    coordinator.animateAlongsideTransition({ _ in 
+        controller.view.alpha = 0
+         }, completion: { _ in
     controller.view.removeFromSuperview()
     controller.removeFromParentViewController()//to truly dispose of the view controller
-        landscapeViewController = nil//to remove the last strong reference to the LandscapeViewController object
+        self.landscapeViewController = nil//to remove the last strong reference to the LandscapeViewController object
+            })//You don’t remove the view and the controller until the animation is completely done.
         }
     }
 }
