@@ -279,6 +279,11 @@ class SearchViewController: UIViewController {
     coordinator.animateAlongsideTransition({ _ in
              
     controller.view.alpha = 1
+    self.searchBar.resignFirstResponder()
+        
+    if self.presentedViewController != nil {
+    self.dismissViewControllerAnimated(true, completion: nil)//to dismiss pop-up
+        }
     }, completion: { _ in
     controller.didMoveToParentViewController(self) //this tell controller that it has a parent
         //you put this here to delay the call to didMoveToParentViewController() until the animation is over.
