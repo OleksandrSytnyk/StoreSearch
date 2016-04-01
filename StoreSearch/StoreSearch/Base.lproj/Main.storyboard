@@ -88,19 +88,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wff-TU-ade">
-                                <rect key="frame" x="248" y="290" width="105" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-4v-UjX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="MMt-6B-zny">
+                                <rect key="frame" x="280" y="282" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="wff-TU-ade" firstAttribute="centerY" secondItem="SCf-zP-uag" secondAttribute="centerY" id="6Ym-uz-vem"/>
-                            <constraint firstItem="wff-TU-ade" firstAttribute="centerX" secondItem="SCf-zP-uag" secondAttribute="centerX" id="r8F-SV-fLC"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pageControl" destination="MMt-6B-zny" id="eOV-yb-1at"/>
+                        <outlet property="scrollView" destination="cxh-4v-UjX" id="xL7-KG-FH3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCi-hS-4as" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
