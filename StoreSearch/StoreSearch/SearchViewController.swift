@@ -269,9 +269,9 @@ class SearchViewController: UIViewController {
     landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier( "LandscapeViewController") as? LandscapeViewController
                 
     if let controller = landscapeViewController {
-                
-    controller.view.frame = view.bounds
         
+    controller.searchResults = searchResults
+    controller.view.frame = view.bounds
     controller.view.alpha = 0
                
     view.addSubview(controller.view)//This places controller.view on top of the SearchResult controller's view
