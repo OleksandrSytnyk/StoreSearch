@@ -15,7 +15,26 @@ class Search {
     
     private var dataTask: NSURLSessionDataTask? = nil
     
-    func performSearchForText(text: String, category: Int, completion: SearchComplete) {
+    enum Category: Int {
+        
+        case All = 0  //0 here is what is called the raw value, i.e. associated value
+        case Music = 1
+        case Software = 2
+        case EBooks = 3
+        
+        var entityName: String {
+        switch self {
+        case .All: return ""
+        case .Music: return "musicTrack"
+        case .Software: return "software"
+        case .EBooks: return "ebook"
+            }
+        }
+    }
+    
+    
+    
+    func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {
             dataTask?.cancel()
             isLoading = true
@@ -53,21 +72,9 @@ class Search {
     }
     
     
-    func urlWithSearchText(searchText: String, category: Int) -> NSURL {
+    func urlWithSearchText(searchText: String, category: Category) -> NSURL {
         
-        
-        let entityName: String
-        
-        switch category {
-            
-        case 1: entityName = "musicTrack"
-            
-        case 2: entityName = "software"
-            
-        case 3: entityName = "ebook"
-            
-        default: entityName = ""
-        }
+       let entityName = category.entityName
         
         let escapedSearchText =
         searchText.stringByAddingPercentEncodingWithAllowedCharacters(
