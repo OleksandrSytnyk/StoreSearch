@@ -13,6 +13,7 @@ class LandscapeViewController: UIViewController {
     var searchResults = [SearchResult]()
     private var firstTime = true
     
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
@@ -33,6 +34,7 @@ class LandscapeViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         
         scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)//By setting this image as a pattern image on the background you get a repeatable image that fills the whole screen.
+        pageControl.numberOfPages = 0//This effectively hides the page control, which is what you want to do when there are no search results (yet).
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,6 +122,9 @@ class LandscapeViewController: UIViewController {
         scrollView.contentSize = CGSize( width: CGFloat(numPages)*scrollViewWidth,
         height: scrollView.bounds.size.height)
         print("Number of pages: \(numPages)")
+        
+        pageControl.numberOfPages = numPages//This sets the number of dots that the page control displays to the number of pages that you calculated.
+        pageControl.currentPage = 0
     }
 
     /*
@@ -131,5 +136,20 @@ class LandscapeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func pageChanged(sender: UIPageControl) {
+        scrollView.contentOffset = CGPoint(
+        x: scrollView.bounds.size.width * CGFloat(sender.currentPage), y: 0)
+    }
 
+}
+
+extension LandscapeViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+    let width = scrollView.bounds.size.width
+    let currentPage = Int((scrollView.contentOffset.x + width/2)/width)
+    pageControl.currentPage = currentPage
+    }
 }
