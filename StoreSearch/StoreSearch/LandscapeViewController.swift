@@ -12,13 +12,17 @@ class LandscapeViewController: UIViewController {
     
     var searchResults = [SearchResult]()
     private var firstTime = true
-    
+    private var downloadTasks = [NSURLSessionDownloadTask]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
     deinit {
     print("deinit \(self)")// to check if the controller is actually disposed
+        
+    for task in downloadTasks {
+        task.cancel()
+        }
     }
     
     override func viewDidLoad() {
@@ -163,6 +167,7 @@ class LandscapeViewController: UIViewController {
             }
         }
         downloadTask.resume()
+        downloadTasks.append(downloadTask)
         }
     }
 }
