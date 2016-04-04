@@ -158,7 +158,7 @@ extension SearchViewController: UISearchBarDelegate {
                 }
                 self.tableView.reloadData()
             })
-            //tableView.reloadData()
+            tableView.reloadData()
             searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
         }
     }
@@ -186,7 +186,7 @@ extension SearchViewController: UITableViewDataSource {
         }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+       
         if search.isLoading {
             let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath)
             
@@ -196,8 +196,6 @@ extension SearchViewController: UITableViewDataSource {
             return cell
             
         } else if search.searchResults.count == 0 {
-        /*cell.nameLabel.text = "(Nothing found)"
-        cell.artistNameLabel.text = ""   this is to fix a bug whih I missed in the previous commit*/
             return tableView.dequeueReusableCellWithIdentifier(
             TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
         } else {
