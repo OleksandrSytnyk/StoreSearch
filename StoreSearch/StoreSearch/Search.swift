@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleksandr. All rights reserved.
 //
 
-import Foundation
+import UIKit
 typealias SearchComplete = (Bool) -> Void //Here you’re declaring a type for your own closure, named SearchComplete, which returns no value (it is Void) and takes one parameter.
 class Search {
     
@@ -42,8 +42,8 @@ class Search {
     
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {
-            dataTask?.cancel()
-            
+        dataTask?.cancel()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             state = .Loading
         
             let url = urlWithSearchText(text, category: category)
@@ -70,6 +70,7 @@ class Search {
                 }
             
                 dispatch_async(dispatch_get_main_queue()) {
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 completion(success)
                     }
                 })//The code from the completion handler will be invoked when the data task has received the reply from the server.
@@ -87,7 +88,7 @@ class Search {
             NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         let urlString = String(format:
-            "https://itunes.apple1.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
+            "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
         
         return url!
