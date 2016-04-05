@@ -42,7 +42,8 @@ class Search {
     
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {
-        
+            dataTask?.cancel()
+            
             state = .Loading
         
             let url = urlWithSearchText(text, category: category)
@@ -86,7 +87,7 @@ class Search {
             NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         let urlString = String(format:
-            "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
+            "https://itunes.apple1.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
         
         return url!

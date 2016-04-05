@@ -154,11 +154,12 @@ extension SearchViewController: UISearchBarDelegate {
         if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
             
             search.performSearchForText(searchBar.text!, category: category, completion: { success in
-                
+            
                 if !success {
                     self.showNetworkError()
                 }
                 self.tableView.reloadData()
+                self.landscapeViewController?.searchResultsReceived()
             })
             tableView.reloadData()
             searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
