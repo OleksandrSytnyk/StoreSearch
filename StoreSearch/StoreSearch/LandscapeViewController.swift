@@ -59,8 +59,10 @@ class LandscapeViewController: UIViewController {
         
         switch search.state {
         
-    case .NotSearchedYet, .Loading, .NoResults:
+    case .NotSearchedYet, .Loading:
         break
+    case .NoResults:
+        showNothingFoundLabel()
     case .Results(let list):
         tileButtons(list)
         }
@@ -87,7 +89,7 @@ class LandscapeViewController: UIViewController {
             case .Loading:
                 showSpinner()
             case .NoResults:
-                break
+                showNothingFoundLabel()
             case .Results(let list):
                 tileButtons(list)
             }
@@ -167,6 +169,23 @@ class LandscapeViewController: UIViewController {
         
         pageControl.numberOfPages = numPages//This sets the number of dots that the page control displays to the number of pages that you calculated.
         pageControl.currentPage = 0
+    }
+    
+    private func showNothingFoundLabel() {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = "Nothing Found"
+        label.textColor = UIColor.whiteColor()
+        label.backgroundColor = UIColor.clearColor()
+                
+        label.sizeToFit()//this tells the label to resize itself to the optimal size.
+                
+        var rect = label.frame
+        rect.size.width = ceil(rect.size.width/2) * 2   // This formula always gives you the next even number if the original is odd.
+        rect.size.height = ceil(rect.size.height/2) * 2 // make even
+        label.frame = rect
+        label.center = CGPoint(x: CGRectGetMidX(scrollView.bounds),
+                               y: CGRectGetMidY(scrollView.bounds))
+        view.addSubview(label)
     }
 
     /*
