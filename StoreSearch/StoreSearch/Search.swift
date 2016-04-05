@@ -9,9 +9,15 @@
 import Foundation
 typealias SearchComplete = (Bool) -> Void //Here you’re declaring a type for your own closure, named SearchComplete, which returns no value (it is Void) and takes one parameter.
 class Search {
-    var searchResults = [SearchResult]()
-    var hasSearched = false
-    var isLoading = false
+    
+    enum State {
+        case NotSearchedYet  //this is also used for when there is an error
+        case Loading
+        case NoResults
+        case Results([SearchResult]) //[SearchResult] is a so-called associated value
+    }
+    
+    private(set) var state: State = .NotSearchedYet //private(set) means private for set, but public for get
     
     private var dataTask: NSURLSessionDataTask? = nil
     
@@ -36,14 +42,14 @@ class Search {
     
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {
-            dataTask?.cancel()
-            isLoading = true
-            hasSearched = true
-            searchResults = [SearchResult]()//it's to remove results of the old search
+        
+            state = .Loading
+        
             let url = urlWithSearchText(text, category: category)
             let session = NSURLSession.sharedSession()
             dataTask = session.dataTaskWithURL(url, completionHandler: {
                 data, response, error in  ////response holds the server’s response code and headers
+                self.state = .NotSearchedYet
                 var success = false
                 if let error = error where error.code == -999 {
                 return // Search was cancelled
@@ -51,18 +57,17 @@ class Search {
                 if let httpResponse = response as? NSHTTPURLResponse
                 where httpResponse.statusCode == 200,
                 let data = data, dictionary = self.parseJSON(data) {
-                self.searchResults = self.parseDictionary(dictionary)
-                self.searchResults.sortInPlace(<)
-                print("Success!")
-                self.isLoading = false
+                var searchResults = self.parseDictionary(dictionary)
+                    
+                if searchResults.isEmpty {
+                self.state = .NoResults 
+                } else { 
+                searchResults.sortInPlace(<)
+                self.state = .Results(searchResults) 
+                    }
                 success = true
                 }
-                if !success {
-                print("Failure! \(response)")
-                self.hasSearched = false
-                self.isLoading = false
-                }
-                 
+            
                 dispatch_async(dispatch_get_main_queue()) {
                 completion(success)
                     }
