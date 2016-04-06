@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -14,16 +14,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZ1-fN-aOE">
-                        <rect key="frame" x="109" y="31" width="102" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Niets gevonden" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZ1-fN-aOE">
+                        <rect key="frame" x="106" y="31" width="108" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="dZ1-fN-aOE" firstAttribute="centerY" secondItem="3Fg-Za-ond" secondAttribute="centerY" id="XOQ-yB-Uri"/>
                     <constraint firstItem="dZ1-fN-aOE" firstAttribute="centerY" secondItem="3Fg-Za-ond" secondAttribute="centerY" id="f7i-ZM-JS6"/>
                     <constraint firstItem="dZ1-fN-aOE" firstAttribute="centerX" secondItem="3Fg-Za-ond" secondAttribute="centerX" id="rj1-I0-0lh"/>
+                    <constraint firstItem="dZ1-fN-aOE" firstAttribute="centerX" secondItem="3Fg-Za-ond" secondAttribute="centerX" id="zi3-H6-2Zj"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="272" y="187"/>
