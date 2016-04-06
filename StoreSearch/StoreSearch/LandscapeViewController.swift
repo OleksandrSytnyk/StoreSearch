@@ -139,7 +139,7 @@ class LandscapeViewController: UIViewController {
         var row = 0
         var column = 0
         var x = marginX
-        for searchResult in searchResults {
+        for (index, searchResult) in searchResults.enumerate() {
            
             let button = UIButton(type: .Custom)
             downloadImageForSearchResult(searchResult, andPlaceOnButton: button)
@@ -149,6 +149,9 @@ class LandscapeViewController: UIViewController {
             button.frame = CGRect(
             x: x + paddingHorz,
             y: marginY + CGFloat(row)*itemHeight + paddingVert, width: buttonWidth, height: buttonHeight)
+                
+                button.tag = 2000 + index
+                button.addTarget(self, action: Selector("buttonPressed:"), forControlEvents: .TouchUpInside)
            
             scrollView.addSubview(button)
            
@@ -187,16 +190,21 @@ class LandscapeViewController: UIViewController {
                                y: CGRectGetMidY(scrollView.bounds))
         view.addSubview(label)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func buttonPressed(sender: UIButton) {
+        performSegueWithIdentifier("ShowDetail", sender: sender)
     }
-    */
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowDetail" {
+    if case .Results(let list) = search.state {
+    let detailViewController = segue.destinationViewController
+    as! DetailViewController
+    let searchResult = list[sender!.tag - 2000]
+    detailViewController.searchResult = searchResult
+            }
+        }
+    }
     
     @IBAction func pageChanged(sender: UIPageControl) {
     UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: {
