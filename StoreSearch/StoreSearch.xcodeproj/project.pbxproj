@@ -17,6 +17,7 @@
 		E4AF9A831CAAEC1900FEBD26 /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AF9A821CAAEC1900FEBD26 /* BounceAnimationController.swift */; };
 		E4C5EAB41CB514C900C4D37D /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C5EAB61CB514C900C4D37D /* LoadingCell.xib */; };
 		E4C5EABB1CB5690700C4D37D /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4C5EABD1CB5690700C4D37D /* SearchResultCell.xib */; };
+		E4C5EAC01CB5943800C4D37D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4C5EABE1CB5943800C4D37D /* Localizable.strings */; };
 		E4D288321CABFD09009B01C5 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D288311CABFD09009B01C5 /* SlideOutAnimationController.swift */; };
 		E4D29F741CB4EADE00C4A6FF /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4D29F761CB4EADE00C4A6FF /* NothingFoundCell.xib */; };
 		E4D4FA681C97FD5B00156CC9 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */; };
@@ -43,8 +44,10 @@
 		E4C5EAB81CB5151F00C4D37D /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LoadingCell.strings; sourceTree = "<group>"; };
 		E4C5EABA1CB55F7300C4D37D /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		E4C5EABC1CB5690700C4D37D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SearchResultCell.xib; sourceTree = "<group>"; };
+		E4C5EABF1CB5943800C4D37D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4D288311CABFD09009B01C5 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
 		E4D29F751CB4EADE00C4A6FF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NothingFoundCell.xib; sourceTree = "<group>"; };
+		E4D493111CB649580003E6D2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		E4D763DD1CACE6C400F137B5 /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
 		E4D8B5B61CB112B60073582C /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		E437A3431C93F75900DB0B20 /* StoreSearch */ = {
 			isa = PBXGroup;
 			children = (
+				E4C5EABE1CB5943800C4D37D /* Localizable.strings */,
 				E437A3441C93F75900DB0B20 /* AppDelegate.swift */,
 				E437A3461C93F75900DB0B20 /* SearchViewController.swift */,
 				E437A3481C93F75900DB0B20 /* Main.storyboard */,
@@ -167,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E437A34C1C93F75900DB0B20 /* Assets.xcassets in Resources */,
+				E4C5EAC01CB5943800C4D37D /* Localizable.strings in Resources */,
 				E4C5EAB41CB514C900C4D37D /* LoadingCell.xib in Resources */,
 				E4C5EABB1CB5690700C4D37D /* SearchResultCell.xib in Resources */,
 				E4D29F741CB4EADE00C4A6FF /* NothingFoundCell.xib in Resources */,
@@ -224,6 +229,15 @@
 				E4C5EABC1CB5690700C4D37D /* Base */,
 			);
 			name = SearchResultCell.xib;
+			sourceTree = "<group>";
+		};
+		E4C5EABE1CB5943800C4D37D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4C5EABF1CB5943800C4D37D /* en */,
+				E4D493111CB649580003E6D2 /* nl */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		E4D29F761CB4EADE00C4A6FF /* NothingFoundCell.xib */ = {
