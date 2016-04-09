@@ -23,6 +23,7 @@
 		E4D4FA681C97FD5B00156CC9 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */; };
 		E4D763DE1CACE6C400F137B5 /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D763DD1CACE6C400F137B5 /* LandscapeViewController.swift */; };
 		E4D8B5B71CB112B70073582C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8B5B61CB112B60073582C /* Search.swift */; };
+		E4DB21BD1CB8D6AC00AD50AB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4DB21BF1CB8D6AC00AD50AB /* InfoPlist.strings */; };
 		E4DD2CE71CA67E4F00CB9111 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DD2CE61CA67E4F00CB9111 /* DetailViewController.swift */; };
 		E4DD2CE91CA6B33C00CB9111 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DD2CE81CA6B33C00CB9111 /* DimmingPresentationController.swift */; };
 		E4DEA6541CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEA6531CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift */; };
@@ -51,6 +52,8 @@
 		E4D4FA671C97FD5B00156CC9 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		E4D763DD1CACE6C400F137B5 /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
 		E4D8B5B61CB112B60073582C /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		E4DB21BE1CB8D6AC00AD50AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E4DB21C01CB8D6B000AD50AB /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E4DD2CE61CA67E4F00CB9111 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E4DD2CE81CA6B33C00CB9111 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		E4DEA6531CA3D44E00024F58 /* UIImageView+DownloadImage.swift..swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift..swift"; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 				E4D763DD1CACE6C400F137B5 /* LandscapeViewController.swift */,
 				E47737151CAE6A8500C8C30D /* FadeOutAnimationController.swift */,
 				E4D8B5B61CB112B60073582C /* Search.swift */,
+				E4DB21BF1CB8D6AC00AD50AB /* InfoPlist.strings */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -171,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E437A34C1C93F75900DB0B20 /* Assets.xcassets in Resources */,
+				E4DB21BD1CB8D6AC00AD50AB /* InfoPlist.strings in Resources */,
 				E4C5EAC01CB5943800C4D37D /* Localizable.strings in Resources */,
 				E4C5EAB41CB514C900C4D37D /* LoadingCell.xib in Resources */,
 				E4C5EABB1CB5690700C4D37D /* SearchResultCell.xib in Resources */,
@@ -247,6 +252,15 @@
 				E4C5EAB31CB4F43B00C4D37D /* nl */,
 			);
 			name = NothingFoundCell.xib;
+			sourceTree = "<group>";
+		};
+		E4DB21BF1CB8D6AC00AD50AB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4DB21BE1CB8D6AC00AD50AB /* Base */,
+				E4DB21C01CB8D6B000AD50AB /* nl */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
