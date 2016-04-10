@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h40-AA-3zg">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="bsM-xo-bq9">
+            <objects>
+                <navigationController id="DC2-Iv-9Dx" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VlX-2B-AC3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tyc-q4-4az" kind="relationship" relationship="rootViewController" id="C5k-Pb-pU2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6We-sA-0er" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1099" y="-451"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="dyR-Nr-jkR">
+            <objects>
+                <splitViewController id="h40-AA-3zg" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="masterViewController" id="Ena-9H-SBO"/>
+                        <segue destination="DC2-Iv-9Dx" kind="relationship" relationship="detailViewController" id="IWx-aX-TaQ"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rgi-ft-pbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-495" y="-451"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -115,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCi-hS-4as" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="284" y="706"/>
+            <point key="canvasLocation" x="-495" y="500"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="cia-v9-Ahi">
@@ -239,6 +268,7 @@
                             <constraint firstItem="qX0-jU-3lm" firstAttribute="centerX" secondItem="r8b-MW-Bf4" secondAttribute="centerX" id="WfV-7Y-1FG"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="WIJ-ZN-MLj"/>
                     <connections>
                         <outlet property="artistNameLabel" destination="ive-yr-pGt" id="tXK-e4-eh7"/>
                         <outlet property="artworkImageView" destination="uGu-JR-sM3" id="BLt-bE-Dvh"/>
@@ -251,7 +281,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P8v-WB-YbE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1037" y="342"/>
+            <point key="canvasLocation" x="1099" y="478"/>
         </scene>
     </scenes>
     <resources>
