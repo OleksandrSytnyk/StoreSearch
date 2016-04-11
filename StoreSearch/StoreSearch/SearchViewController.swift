@@ -23,7 +23,10 @@ class SearchViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0,
             right: 0)//This tells the table view to add a 64-point margin at the top, made up of 20 points for the status bar and 44 points for the Search Bar and 44 points for Navigation bar.
         tableView.rowHeight = 80
+        
+        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
         searchBar.becomeFirstResponder()
+        }
         
         var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
@@ -146,6 +149,13 @@ class SearchViewController: UIViewController {
             })//You don’t remove the view and the controller until the animation is completely done.
         }
     }
+    
+    func hideMasterPane() {
+        UIView.animateWithDuration(0.25, animations: {
+        self.splitViewController!.preferredDisplayMode = .PrimaryHidden },//this hides the master pane
+            completion: { _ in
+        self.splitViewController!.preferredDisplayMode = .Automatic })//without this the master pane would stay hidden even in landscape
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -232,10 +242,14 @@ extension SearchViewController: UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("ShowDetail", sender: indexPath)
         } else {
-                if case .Results(let list) = search.state {
-                    splitViewDetail?.searchResult = list[indexPath.row]
+        
+        if case .Results(let list) = search.state {
+        splitViewDetail?.searchResult = list[indexPath.row]
                 }
+        
+        if splitViewController!.displayMode != .AllVisible { hideMasterPane()
             }
+        }
     }
     
     func tableView(tableView: UITableView,
