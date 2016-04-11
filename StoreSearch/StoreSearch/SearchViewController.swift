@@ -11,6 +11,7 @@ import UIKit
 class SearchViewController: UIViewController {
     let search = Search()
     var landscapeViewController: LandscapeViewController?
+    weak var splitViewDetail: DetailViewController?
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -77,6 +78,7 @@ class SearchViewController: UIViewController {
         let indexPath = sender as! NSIndexPath
         let searchResult = list[indexPath.row]
         detailViewController.searchResult = searchResult
+        detailViewController.isPopUp = true
             }
         }
     }
@@ -225,8 +227,15 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView,
         didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        searchBar.resignFirstResponder()
+            if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .Compact {// the window’s root view controller is the UISplitViewController here. On the iPhone the horizontal size class is always Compact. On the iPad it is always Regular.
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("ShowDetail", sender: indexPath)
+        } else {
+                if case .Results(let list) = search.state {
+                    splitViewDetail?.searchResult = list[indexPath.row]
+                }
+            }
     }
     
     func tableView(tableView: UITableView,

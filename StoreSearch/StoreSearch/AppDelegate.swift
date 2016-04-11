@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        
+        searchViewController.splitViewDetail = detailViewController
         // Override point for customization after application launch.
         customizeAppearance()
         return true

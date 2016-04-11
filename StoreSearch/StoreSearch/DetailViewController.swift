@@ -10,8 +10,15 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    var searchResult: SearchResult!
+    var searchResult: SearchResult! {
+    didSet {
+    if isViewLoaded() {//The isViewLoaded() check ensures this property observer only gets used when on an iPad.
+    updateUI()
+            }
+        }
+    }
     var downloadTask: NSURLSessionDownloadTask?
+    var isPopUp = false
     
     enum AnimationStyle {
         case Slide
@@ -42,12 +49,20 @@ class DetailViewController: UIViewController {
     super.viewDidLoad()
     view.tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
     popupView.layer.cornerRadius = 10
-    view.backgroundColor = UIColor.clearColor()
-            
+    
+    if isPopUp {
     let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
     gestureRecognizer.cancelsTouchesInView = false
     gestureRecognizer.delegate = self
     view.addGestureRecognizer(gestureRecognizer)//This creates the new gesture recognizer that listens to taps anywhere in this view controller and calls the close() method in response.
+    view.backgroundColor = UIColor.clearColor()
+    } else {
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+        popupView.hidden = true
+        
+        if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? String {
+            title = displayName }
+        }
         
         if searchResult != nil {
             updateUI()
@@ -102,7 +117,7 @@ class DetailViewController: UIViewController {
         if let url = NSURL(string: searchResult.artworkURL100) {
                 downloadTask = artworkImageView.loadImageWithURL(url)
         }
-         
+         popupView.hidden = false
     }
     
     @IBAction func openInStore() {
