@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         
         searchViewController.splitViewDetail = detailViewController
+        
+        splitViewController.delegate = self
         // Override point for customization after application launch.
         customizeAppearance()
         return true
@@ -65,5 +67,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window!.tintColor = UIColor(red: 10/255, green: 80/255, blue: 80/255, alpha: 1)
     }//This changes the appearance of all search bars in the application.
     
+}
+
+extension AppDelegate: UISplitViewControllerDelegate {
+    func splitViewController(svc: UISplitViewController,willChangeToDisplayMode displayMode: UISplitViewControllerDisplayMode) {
+    print(__FUNCTION__)
+        
+    if displayMode == .PrimaryOverlay {//.PrimaryOverlay means that the master pane is visible.
+    svc.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
 }
  
