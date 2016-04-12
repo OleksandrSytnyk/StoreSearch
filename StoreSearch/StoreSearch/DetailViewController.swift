@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class DetailViewController: UIViewController {
     
@@ -125,7 +126,13 @@ class DetailViewController: UIViewController {
     UIApplication.sharedApplication().openURL(url)
             }
     }
-                             
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowMenu" {
+        let controller = segue.destinationViewController
+        as! MenuViewController
+        controller.delegate = self }
+    }
 }
 
 extension DetailViewController: UIViewControllerTransitioningDelegate {
@@ -162,3 +169,42 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     return (touch.view === self.view)
     }
 }
+
+extension DetailViewController: MenuViewControllerDelegate {
+    func menuViewControllerSendSupportEmail(_: MenuViewController) {
+     dismissViewControllerAnimated(true) {//it's a completion closure of dismissViewControllerAnimated using trailing syntax
+    if MFMailComposeViewController.canSendMail() {
+        let controller = MFMailComposeViewController()
+        controller.setSubject(NSLocalizedString("Support Request",
+            comment: "Email subject"))
+        controller.setToRecipients(["amsitnik@gmail.com"])
+            self.presentViewController(controller, animated: true, completion: nil)
+        controller.mailComposeDelegate = self
+        controller.modalPresentationStyle = .FormSheet
+        }
+      }
+    }
+}
+
+extension DetailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(controller: MFMailComposeViewController,
+    didFinishWithResult result: MFMailComposeResult,
+    error: NSError?) {//The result parameter says whether the mail could be successfully sent or not.
+        
+        switch result.rawValue {
+        case MFMailComposeResultCancelled.rawValue:
+        print("Mail cancelled, rawValue is \(MFMailComposeResultCancelled.rawValue)")
+        case MFMailComposeResultSaved.rawValue:
+        print("Mail saved")
+        case MFMailComposeResultSent.rawValue:
+        print("Mail sent")
+        case MFMailComposeResultFailed.rawValue:
+        print("Mail sent failure: \(error?.localizedDescription)")
+        default:
+        break
+    }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+

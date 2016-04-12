@@ -355,10 +355,10 @@
             </objects>
             <point key="canvasLocation" x="1093" y="476"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="pRJ-9u-0w1">
             <objects>
-                <tableViewController id="x53-KO-fn2" sceneMemberID="viewController">
+                <tableViewController id="x53-KO-fn2" customClass="MenuViewController" customModule="StoreSearch" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Ut-oH-fcf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
