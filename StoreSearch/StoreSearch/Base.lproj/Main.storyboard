@@ -248,6 +248,12 @@
                                             <constraint firstAttribute="height" constant="18" id="f9c-h8-Plv"/>
                                         </constraints>
                                         <state key="normal" image="CloseButton"/>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="QrZ-B3-tac"/>
+                                                <exclude reference="f9c-h8-Plv"/>
+                                            </mask>
+                                        </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="constraints">
                                                 <exclude reference="QrZ-B3-tac"/>
@@ -313,6 +319,15 @@
                                     </constraint>
                                     <constraint firstItem="9D9-BS-hbv" firstAttribute="leading" secondItem="H6Q-ca-lo8" secondAttribute="leading" id="w36-Zk-k0N"/>
                                 </constraints>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="subviews">
+                                        <exclude reference="DkY-SY-Jr0"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="2gI-NC-O4s"/>
+                                        <exclude reference="jbB-4b-cds"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="subviews">
                                         <exclude reference="DkY-SY-Jr0"/>
@@ -326,9 +341,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qX0-jU-3lm" firstAttribute="centerY" secondItem="r8b-MW-Bf4" secondAttribute="centerY" id="3c6-wF-ShJ"/>
-                            <constraint firstItem="qX0-jU-3lm" firstAttribute="centerX" secondItem="r8b-MW-Bf4" secondAttribute="centerX" id="7c7-Zu-77H"/>
-                            <constraint firstItem="qX0-jU-3lm" firstAttribute="centerY" secondItem="r8b-MW-Bf4" secondAttribute="centerY" id="9T4-HS-OFq"/>
+                            <constraint firstItem="qX0-jU-3lm" firstAttribute="centerY" secondItem="r8b-MW-Bf4" secondAttribute="centerY" id="9T4-HS-OFq">
+                                <variation key="heightClass=compact-widthClass=regular" constant="20"/>
+                            </constraint>
                             <constraint firstItem="qX0-jU-3lm" firstAttribute="centerX" secondItem="r8b-MW-Bf4" secondAttribute="centerX" id="WfV-7Y-1FG"/>
                         </constraints>
                     </view>
@@ -437,6 +452,6 @@
         <image name="PriceButton" width="11" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6UJ-ix-N7v"/>
+        <segue reference="t5W-Fs-POY"/>
     </inferredMetricsTieBreakers>
 </document>
