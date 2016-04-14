@@ -10,23 +10,6 @@ import UIKit
 import MessageUI
 
 class DetailViewController: UIViewController {
-    
-    var searchResult: SearchResult! {
-    didSet {
-    if isViewLoaded() {//The isViewLoaded() check ensures this property observer only gets used when on an iPad.
-    updateUI()
-            }
-        }
-    }
-    var downloadTask: NSURLSessionDownloadTask?
-    var isPopUp = false
-    
-    enum AnimationStyle {
-        case Slide
-        case Fade
-    }
-    var dismissAnimationStyle = AnimationStyle.Fade
-    
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -34,6 +17,24 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var kindLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var priceButton: UIButton!
+    
+    var searchResult: SearchResult! {
+        didSet {
+            if isViewLoaded() {//The isViewLoaded() check ensures this property observer only gets used when on an iPad.
+                updateUI()
+            }
+        }
+    }
+    
+    var downloadTask: NSURLSessionDownloadTask?
+    var isPopUp = false
+    
+    enum AnimationStyle {
+        case Slide
+        case Fade
+    }
+    
+    var dismissAnimationStyle = AnimationStyle.Fade
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -56,29 +57,28 @@ class DetailViewController: UIViewController {
     gestureRecognizer.cancelsTouchesInView = false
     gestureRecognizer.delegate = self
     view.addGestureRecognizer(gestureRecognizer)//This creates the new gesture recognizer that listens to taps anywhere in this view controller and calls the close() method in response.
+        
     view.backgroundColor = UIColor.clearColor()
     } else {
         view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
         popupView.hidden = true
         
         if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? String {
-            title = displayName }
+            title = displayName
         }
+     }
         
         if searchResult != nil {
             updateUI()
-        }
     }
+ }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
    
-    @IBAction func close() {
-    dismissAnimationStyle = .Slide
-    dismissViewControllerAnimated(true, completion: nil)
-    }
+    
 
     /*
     // MARK: - Navigation
@@ -89,6 +89,18 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func close() {
+        dismissAnimationStyle = .Slide
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func openInStore() {
+        if let url = NSURL(string: searchResult.storeURL) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
     func updateUI() {
         nameLabel.text = searchResult.name
         if searchResult.artistName.isEmpty {
@@ -119,12 +131,6 @@ class DetailViewController: UIViewController {
                 downloadTask = artworkImageView.loadImageWithURL(url)
         }
          popupView.hidden = false
-    }
-    
-    @IBAction func openInStore() {
-    if let url = NSURL(string: searchResult.storeURL) {
-    UIApplication.sharedApplication().openURL(url)
-            }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -173,7 +179,7 @@ extension DetailViewController: UIGestureRecognizerDelegate {
 extension DetailViewController: MenuViewControllerDelegate {
     func menuViewControllerSendSupportEmail(_: MenuViewController) {
      dismissViewControllerAnimated(true) {//it's a completion closure of dismissViewControllerAnimated using trailing syntax
-    if MFMailComposeViewController.canSendMail() {
+     if MFMailComposeViewController.canSendMail() {
         let controller = MFMailComposeViewController()
         controller.setSubject(NSLocalizedString("Support Request",
             comment: "Email subject"))
@@ -190,20 +196,7 @@ extension DetailViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(controller: MFMailComposeViewController,
     didFinishWithResult result: MFMailComposeResult,
     error: NSError?) {//The result parameter says whether the mail could be successfully sent or not.
-        
-        switch result.rawValue {
-        case MFMailComposeResultCancelled.rawValue:
-        print("Mail cancelled, rawValue is \(MFMailComposeResultCancelled.rawValue)")
-        case MFMailComposeResultSaved.rawValue:
-        print("Mail saved")
-        case MFMailComposeResultSent.rawValue:
-        print("Mail sent")
-        case MFMailComposeResultFailed.rawValue:
-        print("Mail sent failure: \(error?.localizedDescription)")
-        default:
-        break
-    }
-        dismissViewControllerAnimated(true, completion: nil)
+     dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

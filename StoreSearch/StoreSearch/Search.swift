@@ -5,9 +5,11 @@
 //  Created by MyMacbook on 4/3/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.
 //
-
+import Foundation
 import UIKit
+
 typealias SearchComplete = (Bool) -> Void //Here you’re declaring a type for your own closure, named SearchComplete, which returns no value (it is Void) and takes one parameter.
+
 class Search {
     
     enum State {
@@ -17,10 +19,6 @@ class Search {
         case Results([SearchResult]) //[SearchResult] is a so-called associated value
     }
     
-    private(set) var state: State = .NotSearchedYet //private(set) means private for set, but public for get
-    
-    private var dataTask: NSURLSessionDataTask? = nil
-    
     enum Category: Int {
         
         case All = 0  //0 here is what is called the raw value, i.e. associated value
@@ -29,16 +27,17 @@ class Search {
         case EBooks = 3
         
         var entityName: String {
-        switch self {
-        case .All: return ""
-        case .Music: return "musicTrack"
-        case .Software: return "software"
-        case .EBooks: return "ebook"
+            switch self {
+            case .All: return ""
+            case .Music: return "musicTrack"
+            case .Software: return "software"
+            case .EBooks: return "ebook"
             }
         }
     }
     
-    
+    private(set) var state: State = .NotSearchedYet //private(set) means private for set, but public for get
+    private var dataTask: NSURLSessionDataTask? = nil
     
     func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {

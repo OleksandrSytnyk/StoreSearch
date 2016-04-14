@@ -9,12 +9,12 @@
 import UIKit
 
 class SearchResultCell: UITableViewCell {
-    
-    var downloadTask: NSURLSessionDownloadTask?
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var artworkImageView: UIImageView!
+
+    var downloadTask: NSURLSessionDownloadTask?
+    
     
     override func awakeFromNib() {
     super.awakeFromNib()

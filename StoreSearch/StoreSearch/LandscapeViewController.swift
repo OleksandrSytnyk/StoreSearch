@@ -9,14 +9,15 @@
 import UIKit
 
 class LandscapeViewController: UIViewController {
-    
-    var search: Search!
-    private var firstTime = true
-    private var downloadTasks = [NSURLSessionDownloadTask]()
-    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
 
+    var search: Search!
+    
+    private var firstTime = true
+    private var downloadTasks = [NSURLSessionDownloadTask]()
+    
+    
     deinit {
     print("deinit \(self)")// to check if the controller is actually disposed
         
@@ -46,41 +47,15 @@ class LandscapeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func showSpinner() {
-    let spinner = UIActivityIndicatorView( activityIndicatorStyle: .WhiteLarge)
-    spinner.center = CGPoint(x: CGRectGetMidX(scrollView.bounds) + 0.5, y: CGRectGetMidY(scrollView.bounds) + 0.5)
-    spinner.tag = 1000
-    view.addSubview(spinner)
-    spinner.startAnimating()
-    }
-    
-    func searchResultsReceived() {
-        hideSpinner()
-        
-        switch search.state {
-        
-    case .NotSearchedYet, .Loading:
-        break
-    case .NoResults:
-        showNothingFoundLabel()
-    case .Results(let list):
-        tileButtons(list)
-        }
-    }
-    
-    private func hideSpinner() {
-            view.viewWithTag(1000)?.removeFromSuperview()
-    }
-    
     override func viewWillLayoutSubviews() {
-            
-    super.viewWillLayoutSubviews()
-            
-    scrollView.frame = view.bounds
-    pageControl.frame = CGRect( x: 0, y: view.frame.size.height - pageControl.frame.size.height, width: view.frame.size.width, height: pageControl.frame.size.height)
+        
+        super.viewWillLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        pageControl.frame = CGRect( x: 0, y: view.frame.size.height - pageControl.frame.size.height, width: view.frame.size.width, height: pageControl.frame.size.height)
         
         if firstTime {
-        firstTime = false
+            firstTime = false
             
             switch search.state {
                 
@@ -94,10 +69,51 @@ class LandscapeViewController: UIViewController {
                 tileButtons(list)
             }
         }
-        
-        
     }
-     
+    
+    private func showSpinner() {
+    let spinner = UIActivityIndicatorView( activityIndicatorStyle: .WhiteLarge)
+    spinner.center = CGPoint(x: CGRectGetMidX(scrollView.bounds) + 0.5, y: CGRectGetMidY(scrollView.bounds) + 0.5)
+    spinner.tag = 1000
+    view.addSubview(spinner)
+    spinner.startAnimating()
+    }
+    
+    private func hideSpinner() {
+            view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    private func showNothingFoundLabel() {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = NSLocalizedString("Nothing Found", comment: "Localized kind: Nothing Found as a searching result for landscape")
+        label.textColor = UIColor.whiteColor()
+        label.backgroundColor = UIColor.clearColor()
+        
+        label.sizeToFit()//this tells the label to resize itself to the optimal size.
+        
+        var rect = label.frame
+        rect.size.width = ceil(rect.size.width/2) * 2   // This formula always gives you the next even number if the original is odd.
+        rect.size.height = ceil(rect.size.height/2) * 2 // make even
+        label.frame = rect
+        label.center = CGPoint(x: CGRectGetMidX(scrollView.bounds),
+            y: CGRectGetMidY(scrollView.bounds))
+        view.addSubview(label)
+    }
+    
+    func searchResultsReceived() {
+        hideSpinner()
+        
+        switch search.state {
+            
+        case .NotSearchedYet, .Loading:
+            break
+        case .NoResults:
+            showNothingFoundLabel()
+        case .Results(let list):
+            tileButtons(list)
+        }
+    }
+
     private func tileButtons(searchResults: [SearchResult]) {
         
         var columnsPerPage = 5
@@ -172,23 +188,6 @@ class LandscapeViewController: UIViewController {
         
         pageControl.numberOfPages = numPages//This sets the number of dots that the page control displays to the number of pages that you calculated.
         pageControl.currentPage = 0
-    }
-    
-    private func showNothingFoundLabel() {
-        let label = UILabel(frame: CGRect.zero)
-        label.text = NSLocalizedString("Nothing Found", comment: "Localized kind: Nothing Found as a searching result for landscape")
-        label.textColor = UIColor.whiteColor()
-        label.backgroundColor = UIColor.clearColor()
-                
-        label.sizeToFit()//this tells the label to resize itself to the optimal size.
-                
-        var rect = label.frame
-        rect.size.width = ceil(rect.size.width/2) * 2   // This formula always gives you the next even number if the original is odd.
-        rect.size.height = ceil(rect.size.height/2) * 2 // make even
-        label.frame = rect
-        label.center = CGPoint(x: CGRectGetMidX(scrollView.bounds),
-                               y: CGRectGetMidY(scrollView.bounds))
-        view.addSubview(label)
     }
     
     func buttonPressed(sender: UIButton) {

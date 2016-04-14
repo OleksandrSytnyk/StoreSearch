@@ -9,14 +9,20 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
     let search = Search()
     var landscapeViewController: LandscapeViewController?
     weak var splitViewDetail: DetailViewController?
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
+    struct TableViewCellIdentifiers {
+        static let searchResultCell = "SearchResultCell"
+        static let nothingFoundCell = "NothingFoundCell"
+        static let loadingCell = "LoadingCell"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("Search", comment: "Split-view master button")
@@ -47,15 +53,22 @@ class SearchViewController: UIViewController {
        performSearch()
     }
     
-    
-
-    struct TableViewCellIdentifiers {
-        static let searchResultCell = "SearchResultCell"
-        static let nothingFoundCell = "NothingFoundCell"
-        static let loadingCell = "LoadingCell"
+    func performSearch() {
+        
+        if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
+            
+            search.performSearchForText(searchBar.text!, category: category, completion: { success in
+                
+                if !success {
+                    self.showNetworkError()
+                }
+                self.tableView.reloadData()
+                self.landscapeViewController?.searchResultsReceived()
+            })
+            tableView.reloadData()
+            searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
+        }
     }
-    
-    
    
     func showNetworkError() {
                 let alert = UIAlertController(
@@ -68,10 +81,6 @@ class SearchViewController: UIViewController {
                 
                 presentViewController(alert, animated: true, completion: nil)
     }
-    
-    
-    
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -172,24 +181,6 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         performSearch()
     }//- a method searchBarSearchButtonClicked() is invoked when the user taps the Search button on the keyboard
-    
-    func performSearch() {
-        
-        if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
-            
-            search.performSearchForText(searchBar.text!, category: category, completion: { success in
-            
-                if !success {
-                    self.showNetworkError()
-                }
-                self.tableView.reloadData()
-                self.landscapeViewController?.searchResultsReceived()
-            })
-            tableView.reloadData()
-            searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
-        }
-    }
-        
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return .TopAttached
