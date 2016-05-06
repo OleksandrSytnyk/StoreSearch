@@ -11,7 +11,7 @@ import UIKit
 class DimmingPresentationController: UIPresentationController {
     
     override func shouldRemovePresentersView() -> Bool {
-    return false
+    return false//this tell UIKit to leave the SearchViewController visible.
     }
     
     lazy var dimmingView = GradientView(frame: CGRect.zero)

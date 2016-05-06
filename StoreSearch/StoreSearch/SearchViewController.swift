@@ -122,7 +122,7 @@ class SearchViewController: UIViewController {
     func showLandscapeViewWithCoordinator(
     coordinator: UIViewControllerTransitionCoordinator) {
                
-    //precondition(landscapeViewController == nil)
+    precondition(landscapeViewController == nil)
                 
     landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier( "LandscapeViewController") as? LandscapeViewController
                 
@@ -133,7 +133,7 @@ class SearchViewController: UIViewController {
     controller.view.alpha = 0
                
     view.addSubview(controller.view)//This places controller.view on top of the SearchResult controller's view
-    addChildViewController(controller)//this tell the SearchViewController  that controller is who is managing it's part of the screen, actually full top of the screen
+    addChildViewController(controller)//this tell the SearchViewController  that controller is who is managing that part of the screen, actually full top of the screen
     coordinator.animateAlongsideTransition({ _ in
              
     controller.view.alpha = 1

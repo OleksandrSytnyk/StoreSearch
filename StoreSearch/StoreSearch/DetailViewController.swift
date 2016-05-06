@@ -130,7 +130,11 @@ class DetailViewController: UIViewController {
         if let url = NSURL(string: searchResult.artworkURL100) {
                 downloadTask = artworkImageView.loadImageWithURL(url)
         }
-         popupView.hidden = false
+        
+        popupView.hidden = false
+        if let _ = view.window {
+        popupView.alpha = 0
+        UIView.animateWithDuration(0.4, animations: {self.popupView.alpha = 1}, completion: nil)}
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -141,11 +145,11 @@ class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: UIViewControllerTransitioningDelegate {
+extension DetailViewController: UIViewControllerTransitioningDelegate {//this is Presentation Manager
     
     func presentationControllerForPresentedViewController(
         presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        
+       
         return DimmingPresentationController( presentedViewController: presented,
         presentingViewController: presenting)
     }
@@ -163,7 +167,8 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     case .Slide:
         return SlideOutAnimationController()
     case .Fade:
-        return FadeOutAnimationController() }
+        return FadeOutAnimationController()
+            }
     }
 }
 
