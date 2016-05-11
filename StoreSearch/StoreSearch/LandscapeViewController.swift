@@ -222,8 +222,11 @@ class LandscapeViewController: UIViewController {
         
         let downloadTask = session.downloadTaskWithURL(url) {
         [weak button] url, response, error in
-        if error == nil, let url = url, data = NSData(contentsOfURL: url),  image = UIImage(data: data) {
+        if error == nil, let url = url, data = NSData(contentsOfURL: url), var image = UIImage(data: data) {
         dispatch_async(dispatch_get_main_queue()) {
+            if image.size.height != 60 || image.size.width != 60 {
+                image = image.resizedImageWithBounds(CGSize(width: 60, height: 60))
+            }
         if let button = button {
         button.setImage(image, forState: .Normal)
                     }
@@ -234,6 +237,8 @@ class LandscapeViewController: UIViewController {
         downloadTasks.append(downloadTask)
         }
     }
+    
+    
 }
 
 extension LandscapeViewController: UIScrollViewDelegate {
