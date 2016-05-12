@@ -43,6 +43,15 @@ class SearchViewController: UIViewController {
         
         cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: "preferredContentSizeChanged:",
+            name: UIContentSizeCategoryDidChangeNotification,
+            object: nil)
+    }
+    
+    func preferredContentSizeChanged(notification: NSNotification) {
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -210,6 +219,9 @@ extension SearchViewController: UITableViewDataSource {
         fatalError("Should never get here")//numberOfRowsInSection returns 0 for .NotSearchedYet and no cells will ever be asked for. This case is because a switch must always be exhaustive
     case .Loading:
         let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath)
+        
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
                 
         let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
                 spinner.startAnimating()
@@ -217,6 +229,11 @@ extension SearchViewController: UITableViewDataSource {
         return cell
         
     case .NoResults:
+        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
+        
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
         return tableView.dequeueReusableCellWithIdentifier(
             TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
     case .Results(let list):
@@ -224,6 +241,8 @@ extension SearchViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(
                 TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
             let searchResult = list[indexPath.row]
+            cell.nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+            cell.artistNameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
             
             cell.configureForSearchResult(searchResult)
             
