@@ -1,6 +1,6 @@
 //
 //  Search.swift
-//  StoreSearch
+//  GoodsFinder
 //
 //  Created by MyMacbook on 4/3/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.

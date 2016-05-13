@@ -32,7 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E437A3411C93F75900DB0B20 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E437A3411C93F75900DB0B20 /* GoodsFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodsFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E437A3441C93F75900DB0B20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E437A3461C93F75900DB0B20 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E437A3491C93F75900DB0B20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		E437A3421C93F75900DB0B20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E437A3411C93F75900DB0B20 /* StoreSearch.app */,
+				E437A3411C93F75900DB0B20 /* GoodsFinder.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,9 +123,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E437A3401C93F75900DB0B20 /* StoreSearch */ = {
+		E437A3401C93F75900DB0B20 /* GoodsFinder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E437A3531C93F75900DB0B20 /* Build configuration list for PBXNativeTarget "StoreSearch" */;
+			buildConfigurationList = E437A3531C93F75900DB0B20 /* Build configuration list for PBXNativeTarget "GoodsFinder" */;
 			buildPhases = (
 				E437A33D1C93F75900DB0B20 /* Sources */,
 				E437A33E1C93F75900DB0B20 /* Frameworks */,
@@ -135,9 +135,9 @@
 			);
 			dependencies = (
 			);
-			name = StoreSearch;
+			name = GoodsFinder;
 			productName = StoreSearch;
-			productReference = E437A3411C93F75900DB0B20 /* StoreSearch.app */;
+			productReference = E437A3411C93F75900DB0B20 /* GoodsFinder.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -156,7 +156,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E437A33C1C93F75900DB0B20 /* Build configuration list for PBXProject "StoreSearch" */;
+			buildConfigurationList = E437A33C1C93F75900DB0B20 /* Build configuration list for PBXProject "GoodsFinder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -170,7 +170,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E437A3401C93F75900DB0B20 /* StoreSearch */,
+				E437A3401C93F75900DB0B20 /* GoodsFinder */,
 			);
 		};
 /* End PBXProject section */
@@ -360,8 +360,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StoreSearch/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Oleksandr.StoreSearch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksandrSytnyk.GoodsFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -372,8 +373,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StoreSearch/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Oleksandr.StoreSearch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksandrSytnyk.GoodsFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -382,7 +384,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E437A33C1C93F75900DB0B20 /* Build configuration list for PBXProject "StoreSearch" */ = {
+		E437A33C1C93F75900DB0B20 /* Build configuration list for PBXProject "GoodsFinder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E437A3511C93F75900DB0B20 /* Debug */,
@@ -391,7 +393,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E437A3531C93F75900DB0B20 /* Build configuration list for PBXNativeTarget "StoreSearch" */ = {
+		E437A3531C93F75900DB0B20 /* Build configuration list for PBXNativeTarget "GoodsFinder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E437A3541C93F75900DB0B20 /* Debug */,

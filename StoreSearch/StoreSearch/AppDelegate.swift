@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  StoreSearch
+//  GoodsFinder
 //
 //  Created by MyMacbook on 3/12/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.

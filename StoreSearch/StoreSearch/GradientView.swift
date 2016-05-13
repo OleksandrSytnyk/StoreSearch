@@ -1,6 +1,6 @@
 //
 //  GradientView.swift
-//  StoreSearch
+//  GoodsFinder
 //
 //  Created by MyMacbook on 3/29/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.

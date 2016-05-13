@@ -1,6 +1,6 @@
 //
 //  UIImage+Resize.swift
-//  StoreSearch
+//  GoodsFinder
 //
 //  Created by MyMacbook on 5/11/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  DimmingPresentationController.swift
-//  StoreSearch
+//  GoodsFinder
 //
 //  Created by MyMacbook on 3/26/16.
 //  Copyright © 2016 Oleksandr. All rights reserved.
