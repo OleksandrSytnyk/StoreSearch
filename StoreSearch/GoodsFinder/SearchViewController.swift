@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
         static let nothingFoundCell = "NothingFoundCell"
         static let loadingCell = "LoadingCell"
     }
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("Search", comment: "Split-view master button")
@@ -48,6 +48,13 @@ class SearchViewController: UIViewController {
             selector: "preferredContentSizeChanged:",
             name: UIContentSizeCategoryDidChangeNotification,
             object: nil)
+        
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func preferredContentSizeChanged(notification: NSNotification) {
@@ -211,9 +218,9 @@ extension SearchViewController: UITableViewDataSource {
             return list.count
             }
     }
- 
+  
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-                
+        
                 switch search.state {
     case .NotSearchedYet:
         fatalError("Should never get here")//numberOfRowsInSection returns 0 for .NotSearchedYet and no cells will ever be asked for. This case is because a switch must always be exhaustive
@@ -250,7 +257,6 @@ extension SearchViewController: UITableViewDataSource {
                 }
             }
     }
-
 
 extension SearchViewController: UITableViewDelegate {
     
