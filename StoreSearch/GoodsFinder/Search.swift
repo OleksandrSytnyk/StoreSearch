@@ -108,6 +108,33 @@ class Search {
         }
     }
     
+    func resultsCheck(array: [AnyObject]) -> [AnyObject] {
+        var checkedArray = [AnyObject]()
+        
+        for resultDict in array {
+            
+            if let resultDict = resultDict as? [String: AnyObject] {
+                for (_, value) in resultDict {
+                    var isFound = false
+                    let value = String(value)
+                   var fromValueArray = String(value).componentsSeparatedByString(" ")
+                    //.characters.split{$0 == " "}.map(String.init)
+                    
+                    for item in fromValueArray {
+                        if item.containsString("yoga") || item.containsString("Yoga") {
+                            isFound = true
+                            checkedArray.append(resultDict)
+                            break
+                        }
+                    }
+                    fromValueArray.removeAll()
+                    if isFound == true {break}
+                }
+            }
+        }
+        return checkedArray
+    }
+    
     func parseDictionary(dictionary: [String: AnyObject]) -> [SearchResult] {
         
         guard let array = dictionary["results"] as? [AnyObject]
@@ -116,9 +143,10 @@ class Search {
                 return []
         }
         
+        let checkedArray = resultsCheck(array)
         var searchResults = [SearchResult]()
         
-        for resultDict in array {
+        for resultDict in checkedArray {
             
             if let resultDict = resultDict as? [String: AnyObject] {
                 
@@ -149,7 +177,7 @@ class Search {
                     
                 }
             }
-        }
+            }
         return searchResults
     }
     
