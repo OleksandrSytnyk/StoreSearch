@@ -22,7 +22,7 @@ extension UIImageView {
     
     dispatch_async(dispatch_get_main_queue()) {
         if let strongSelf = self {//you check here whether “self” (UIImageView) still exists;
-    strongSelf.image = image
+    strongSelf.image = image//Because this is UI code you need to do this on the main thread.
             }
         }
     }
@@ -32,3 +32,4 @@ extension UIImageView {
     return downloadTask
     }
 }
+

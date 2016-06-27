@@ -117,8 +117,8 @@ class SearchViewController: UIViewController {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
             
         let rect = UIScreen.mainScreen().bounds
-        if (rect.width == 736 && rect.height == 414) || // portrait
-            (rect.width == 414 && rect.height == 736) { // landscape 
+        if (rect.width == 736 && rect.height == 414) || // portrait or landscape screen dimensions for iPhone 6. Without this bit of code it try to run both behaivour for iPhone and iPad. So this part of code prevent it to run as iPhone
+            (rect.width == 414 && rect.height == 736) { //
         if presentedViewController != nil {
         dismissViewControllerAnimated(true, completion: nil)
             }
@@ -140,7 +140,7 @@ class SearchViewController: UIViewController {
                
     precondition(landscapeViewController == nil)
                 
-    landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier( "LandscapeViewController") as? LandscapeViewController
+    landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier( "LandscapeViewController") as? LandscapeViewController //This finds the scene with the ID “LandscapeViewController” in the storyboard and instantiate it. Because you don’t have a segue you need to do this manually.
                 
     if let controller = landscapeViewController {
         
@@ -156,7 +156,7 @@ class SearchViewController: UIViewController {
     self.searchBar.resignFirstResponder()
         
     if self.presentedViewController != nil {
-    self.dismissViewControllerAnimated(true, completion: nil)//to dismiss pop-up
+    self.dismissViewControllerAnimated(true, completion: nil)//Presented in presentedViewController means presented modally. So it's to dismiss pop-up
         }
     }, completion: { _ in
     controller.didMoveToParentViewController(self) //this tell controller that it has a parent
@@ -285,7 +285,7 @@ extension SearchViewController: UITableViewDelegate {
                 return nil
             case .Results://You don’t need to bind the results array because you’re not using it for anything.
                 return indexPath
-        }
+        }//This makes sure that you can only select rows with actual search results.
     }
     
 }

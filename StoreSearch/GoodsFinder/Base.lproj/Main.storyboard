@@ -373,7 +373,7 @@
         <!--Menu View Controller-->
         <scene sceneID="pRJ-9u-0w1">
             <objects>
-                <tableViewController id="x53-KO-fn2" customClass="MenuViewController" customModule="StoreSearch" sceneMemberID="viewController">
+                <tableViewController id="x53-KO-fn2" customClass="MenuViewController" customModule="GoodsFinder" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Ut-oH-fcf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -882,6 +882,6 @@
         <image name="PriceButton" width="11" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C5k-Pb-pU2"/>
+        <segue reference="6UJ-ix-N7v"/>
     </inferredMetricsTieBreakers>
 </document>

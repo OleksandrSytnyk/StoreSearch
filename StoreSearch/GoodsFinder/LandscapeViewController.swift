@@ -233,7 +233,7 @@ class LandscapeViewController: UIViewController {
                 }
             }
         }
-        downloadTask.resume()
+        downloadTask.resume()//you call resume() to start the download task
         downloadTasks.append(downloadTask)
         }
     }
