@@ -17,6 +17,7 @@ class SearchViewController: UIViewController {
     var landscapeViewController: LandscapeViewController?
     weak var splitViewDetail: DetailViewController?
     var clearing = false
+    var oneCharacterInSearchText = false
     
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
@@ -25,15 +26,27 @@ class SearchViewController: UIViewController {
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        guard searchText != ""
+        guard searchText.characters.count != 1
             else {
-        if case .Results(let list) = search.state {
+            oneCharacterInSearchText = true
+                return
+        }
+        guard searchText.characters.count != 2
+            else {
+                oneCharacterInSearchText = false
+                return
+        }
+        guard searchText == "" && oneCharacterInSearchText == false
+            else {
+                return
+        }
+        
+        if case .Results = search.state {
           clearing = true
           tableView.reloadData()
             clearing = false
+            oneCharacterInSearchText = false
             }
-        return
-        }
     }
 
     override func viewDidLoad() {
