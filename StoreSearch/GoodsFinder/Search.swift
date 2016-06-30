@@ -108,7 +108,7 @@ class Search {
         }
     }
     
-    func resultsCheck(array: [AnyObject]) -> [AnyObject] {
+    /*func resultsCheck(array: [AnyObject]) -> [AnyObject] {
         var checkedArray = [AnyObject]()
         
         for resultDict in array {
@@ -133,7 +133,7 @@ class Search {
             }
         }
         return checkedArray
-    }
+    }*/
     
     func parseDictionary(dictionary: [String: AnyObject]) -> [SearchResult] {
         
@@ -143,10 +143,10 @@ class Search {
                 return []
         }
         
-        let checkedArray = resultsCheck(array)
+        //let checkedArray = resultsCheck(array)
         var searchResults = [SearchResult]()
         
-        for resultDict in checkedArray {
+        for resultDict in array {
             
             if let resultDict = resultDict as? [String: AnyObject] {
                 
