@@ -16,13 +16,26 @@ class SearchViewController: UIViewController {
     let search = Search()
     var landscapeViewController: LandscapeViewController?
     weak var splitViewDetail: DetailViewController?
+    var clearing = false
     
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
         static let loadingCell = "LoadingCell"
     }
- 
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText != ""
+            else {
+        if case .Results(let list) = search.state {
+          clearing = true
+          tableView.reloadData()
+            clearing = false
+            }
+        return
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("Search", comment: "Split-view master button")
@@ -51,6 +64,8 @@ class SearchViewController: UIViewController {
         
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        searchBar.delegate = self
     }
     
     deinit {
@@ -81,7 +96,6 @@ class SearchViewController: UIViewController {
                 self.tableView.reloadData()
                 self.landscapeViewController?.searchResultsReceived()
             })
-            tableView.reloadData()
             searchBar.resignFirstResponder()//This tells the UISearchBar that it should no longer listen to keyboard input. As a result, the keyboard will hide itself until you tap inside the search bar again.
         }
     }
@@ -206,13 +220,14 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDataSource {
     
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            guard clearing == false
+                else {
+                    return 0}
         
         switch search.state {
         case .NotSearchedYet:
             return 0
-        case .Loading:
-            return 1
-        case .NoResults:
+        case .Loading, .NoResults:
             return 1
         case .Results(let list):
             return list.count
@@ -220,6 +235,11 @@ extension SearchViewController: UITableViewDataSource {
     }
   
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    guard clearing == false
+        else {
+            return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "emptyCell")
+        }
         
                 switch search.state {
     case .NotSearchedYet:
