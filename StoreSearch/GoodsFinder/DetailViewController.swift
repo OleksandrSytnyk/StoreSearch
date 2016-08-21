@@ -183,7 +183,8 @@ extension DetailViewController: UIGestureRecognizerDelegate {
 
 extension DetailViewController: MenuViewControllerDelegate {
     func menuViewControllerSendSupportEmail(_: MenuViewController) {
-     dismissViewControllerAnimated(true) {//it's a completion closure of dismissViewControllerAnimated using trailing syntax
+     dismissViewControllerAnimated(true) //to dismiss popover
+         {//it's a completion closure of dismissViewControllerAnimated using trailing syntax
      if MFMailComposeViewController.canSendMail() {
         let controller = MFMailComposeViewController()
         controller.setSubject(NSLocalizedString("Support Request",
